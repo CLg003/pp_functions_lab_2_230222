@@ -37,7 +37,8 @@ def task_descriptions(task_list):
 # task_descriptions(tasks)
 
 # Print a list of tasks where time_taken is at least a given time
-def minimum_time(time, task_list):
+def minimum_time(task_list):
+    time = int(input("What is your minimum time? "))
     timed_tasks = []
     for task in task_list:
         if task["time_taken"] >= time:
@@ -45,31 +46,36 @@ def minimum_time(time, task_list):
     
     print(timed_tasks)
 
-# minimum_time(15, tasks)
+# minimum_time(tasks)
 
 # Print any task with a given description
-def task_by_description(task_list, description):
+def task_by_description(task_list):
+    task_description = input("What task would you like to search for? ")
     for task in task_list:
-        if description == task["description"]:
+        if task_description == task["description"]:
             print(task)
             break
-# task_by_description(tasks, "Walk Dog")
+# task_by_description(tasks)
 
 # Given a description update that task to mark it as complete.
-def mark_task_completed(task_list, description):
+def mark_task_completed(task_list):
+    task_description = input("What task have you completed? ")
     for task in task_list:
-        if description == task["description"]:
+        if task_description == task["description"]:
             task["completed"] = True
-            print(f"{description} task completed")
+            print(f"{task_description} task completed")
 
-# mark_task_completed(tasks, "Feed Cat")
+# mark_task_completed(tasks)
 
 # Add a task to the list
-def add_task(task_list, new_task):
+def add_task(task_list):
+    new_task = input("What task do you want to add? ")
+    task_time = input("How long does it take? ")
+    new_task = {"description" : new_task, "completed" : False, "time_taken" : task_time}
     task_list.append(new_task)
     print(f'{new_task["description"]} added to task list')
 
-# add_task(tasks, {"description" : "Hoover", "completed" : False, "time_taken" : 20})
+add_task(tasks)
 
 # Use a while loop to display the following menu and allow the use to enter an option.
 def display_menu():
@@ -81,4 +87,27 @@ def display_menu():
     user_choice = input("Please select an option from the menu: ")
     return user_choice
 
-display_menu()
+# display_menu()
+
+# Call the appropriate function depending on the users choice.
+def do_task(user_choice):
+    if user_choice == "1":
+        task_descriptions(tasks)
+    elif user_choice == "2":
+        uncompleted_tasks(tasks)
+    elif user_choice == 3:
+        completed_tasks(tasks)
+    elif user_choice == 4:
+        mark_task_completed(tasks)
+    elif user_choice == 5:
+        minimum_time(tasks)
+    elif user_choice == 6:
+        task_by_description(tasks)
+    elif user_choice == 7:
+        add_task(tasks)
+    
+
+
+
+
+do_task(display_menu())
